@@ -7,5 +7,6 @@ RUN apt-get install -y nodejs git curl
 RUN useradd -ms /bin/bash devpad
 COPY . /home/devpad
 WORKDIR /home/devpad
+RUN chmod 755 /home/devpad/entrypoint.sh
 #RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 CMD ["/home/devpad/entrypoint.sh"]
