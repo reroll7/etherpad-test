@@ -3,12 +3,12 @@
     "apiVersion": "v1",
     "metadata": {
         "name": "wordpress-classic-standalone",
-	"annotations": {
-            "openshift.io/display-name": "WordPress (Classic / Standalone)",
-	    "description": "Creates a WordPress installation with separate MySQL database instance. Requires that two persistent volumes be available. If a ReadWriteMany persistent volume type is available and used, WordPress can be scaled to multiple replicas and the deployment strategy switched to Rolling to permit rolling deployments on restarts.",
-	    "tags": "quickstart,php,wordpress",
+    "annotations": {
+        "openshift.io/display-name": "WordPress (Classic / Standalone)",
+        "description": "Creates a WordPress installation with separate MySQL database instance. Requires that two persistent volumes be available. If a ReadWriteMany persistent volume type is available and used, WordPress can be scaled to multiple replicas and the deployment strategy switched to Rolling to permit rolling deployments on restarts.",
+        "tags": "quickstart,php,wordpress",
             "iconClass": "icon-php"
-	}
+    }
     },
     "parameters": [
         {
@@ -60,18 +60,18 @@
             "value": "512Mi",
             "required": true
         },
-	{
-	    "description": "The name of the database user.",
-	    "name": "DATABASE_USERNAME",
-	    "from": "user[a-f0-9]{8}",
-	    "generate": "expression"
-	},
-	{
-	    "description": "The password for the database user.",
-	    "name": "DATABASE_PASSWORD",
-	    "from": "[a-zA-Z0-9]{12}",
-	    "generate": "expression"
-	},
+    {
+        "description": "The name of the database user.",
+        "name": "DATABASE_USERNAME",
+        "from": "user[a-f0-9]{8}",
+        "generate": "expression"
+    },
+    {
+        "description": "The password for the database user.",
+        "name": "DATABASE_PASSWORD",
+        "from": "[a-zA-Z0-9]{12}",
+        "generate": "expression"
+    },
         {
             "name": "MYSQL_VERSION",
             "description": "The version of the MySQL database.",
@@ -222,45 +222,45 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-				"resources": {
+                "resources": {
                                     "limits": {
                                         "memory": "${WORDPRESS_MEMORY_LIMIT}"
-				    }
+                    }
                                 },
-				"readinessProbe": {
-				    "failureThreshold": 3,
-				    "httpGet": {
-					"path": "/wp-admin/install.php",
-					"port": 8080,
-					"scheme": "HTTP",
-					"httpHeaders": [
-					    {
-						"name": "X-Forwarded-Proto",
-						"value": "https"
-					    }
-					]
-				    },
-				    "periodSeconds": 10,
-				    "successThreshold": 1,
-				    "timeoutSeconds": 1
-				},
-				"livenessProbe": {
-				    "failureThreshold": 3,
-				    "httpGet": {
-					"path": "/wp-admin/install.php",
-					"port": 8080,
-					"scheme": "HTTP",
-					"httpHeaders": [
-					    {
-						"name": "X-Forwarded-Proto",
-						"value": "https"
-					    }
-					]
-				    },
-				    "periodSeconds": 10,
-				    "successThreshold": 1,
-				    "timeoutSeconds": 1
-				},
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                    "path": "/wp-admin/install.php",
+                    "port": 8080,
+                    "scheme": "HTTP",
+                    "httpHeaders": [
+                        {
+                        "name": "X-Forwarded-Proto",
+                        "value": "https"
+                        }
+                    ]
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                    "path": "/wp-admin/install.php",
+                    "port": 8080,
+                    "scheme": "HTTP",
+                    "httpHeaders": [
+                        {
+                        "name": "X-Forwarded-Proto",
+                        "value": "https"
+                        }
+                    ]
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
                                 "env": [
                                     {
                                         "name": "MYSQL_DATABASE",
@@ -358,26 +358,26 @@
                                         "protocol": "TCP"
                                     }
                                 ],
-				"resources": {
+                "resources": {
                                     "limits": {
                                         "memory": "${DATABASE_MEMORY_LIMIT}"
-				    }
+                    }
                                 },
-				"readinessProbe": {
-				  "timeoutSeconds": 1,
-				  "initialDelaySeconds": 5,
-				  "exec": {
-				    "command": [ "/bin/sh", "-i", "-c",
-				      "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"]
-				  }
-				},
-				"livenessProbe": {
-				  "timeoutSeconds": 1,
-				  "initialDelaySeconds": 30,
-				  "tcpSocket": {
-				    "port": 3306
-				  }
-				},
+                "readinessProbe": {
+                  "timeoutSeconds": 1,
+                  "initialDelaySeconds": 5,
+                  "exec": {
+                    "command": [ "/bin/sh", "-i", "-c",
+                      "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"]
+                  }
+                },
+                "livenessProbe": {
+                  "timeoutSeconds": 1,
+                  "initialDelaySeconds": 30,
+                  "tcpSocket": {
+                    "port": 3306
+                  }
+                },
                                 "env": [
                                     {
                                         "name": "MYSQL_DATABASE",
@@ -496,7 +496,7 @@
                         "storage": "${DATABASE_VOLUME_SIZE}"
                     }
                 },
-	        "storageClassName": "ocs-storagecluster-cephfs"
+            "storageClassName": "ocs-storagecluster-cephfs"
             }
         },
         {
